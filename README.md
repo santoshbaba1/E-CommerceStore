@@ -1,7 +1,383 @@
 # E-Commerce Microservices Application
 
 A full-stack MERN e-commerce application built with microservices architecture, featuring 4 separate Node.js backend services and a React frontend.
+---
+# Deploy a Multi-Service Node.js E-Commerce Application Using Terraform and Docker
 
+## Assignment Overview
+
+This project demonstrates the deployment of a Multi-Service Node.js E-Commerce Application on AWS using Terraform for Infrastructure as Code (IaC) and Docker for containerization.
+
+The application consists of five independent services:
+
+* Frontend Service
+* User Service
+* Product Service
+* Order Service
+* Cart Service
+
+All services are containerized using Docker, pushed to DockerHub, and automatically deployed on AWS EC2 instances provisioned through Terraform.
+
+---
+
+# Objective
+
+Provision AWS infrastructure using Terraform and deploy Dockerized Node.js services automatically using EC2 User Data scripts.
+
+The frontend service is publicly accessible through the EC2 Public IP address.
+
+---
+
+# Architecture
+
+```text
+                    Internet
+                        |
+                        |
+                +----------------+
+                |  AWS EC2 Host  |
+                +----------------+
+                        |
+      -------------------------------------------------
+      |          |           |          |             |
+      |          |           |          |             |
+ Frontend     User      Product      Order        Cart
+ Port 3000   3001        3002         3003         3004
+```
+
+---
+
+# Technology Stack
+
+* AWS EC2
+* AWS VPC
+* Terraform
+* Docker
+* DockerHub
+* Node.js
+* Ubuntu 22.04
+
+---
+
+# Infrastructure Provisioned
+
+Terraform creates the following resources:
+
+### Networking
+
+* VPC
+* Public Subnet
+* Internet Gateway
+* Route Table
+* Route Table Association
+
+### Compute
+
+* EC2 Instance
+
+### Security
+
+* Security Group
+* SSH Access
+
+---
+
+# Network Configuration
+
+| Resource      | CIDR Block  |
+| ------------- | ----------- |
+| VPC           | 10.0.0.0/16 |
+| Public Subnet | 10.0.1.0/24 |
+
+---
+
+# Docker Images
+
+| Service         | Port | Docker Image                           |
+| --------------- | ---- | -------------------------------------- |
+| Frontend        | 3000 | dockerhub-username/frontend-service:v1 |
+| User Service    | 3001 | dockerhub-username/user-service:v1     |
+| Product Service | 3002 | dockerhub-username/product-service:v1  |
+| Order Service   | 3003 | dockerhub-username/order-service:v1    |
+| Cart Service    | 3004 | dockerhub-username/cart-service:v1     |
+
+---
+
+# Security Group Configuration
+
+### Inbound Rules
+
+| Port | Protocol | Purpose         |
+| ---- | -------- | --------------- |
+| 22   | TCP      | SSH             |
+| 3000 | TCP      | Frontend        |
+| 3001 | TCP      | User Service    |
+| 3002 | TCP      | Product Service |
+| 3003 | TCP      | Order Service   |
+| 3004 | TCP      | Cart Service    |
+
+### Outbound Rules
+
+Allow All Traffic
+
+---
+
+# Project Structure
+
+```text
+project/
+│
+├── frontend/
+├── user-service/
+├── product-service/
+├── order-service/
+├── cart-service/
+│
+├── terraform/
+│   ├── provider.tf
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars
+│   └── userdata.sh
+│
+└── README.md
+```
+
+---
+
+# Deployment Steps
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/AtharvaAI/E-CommerceStore.git
+
+cd project-name/terraform
+```
+
+---
+
+## 2. Configure AWS Credentials
+
+```bash
+aws configure
+```
+
+Provide:
+
+```text
+AWS Access Key ID
+AWS Secret Access Key
+AWS Region
+```
+
+---
+
+## 3. Initialize Terraform
+
+```bash
+terraform init
+```
+
+---
+
+## 4. Validate Configuration
+
+```bash
+terraform validate
+```
+
+---
+
+## 5. Review Execution Plan
+
+```bash
+terraform plan
+```
+
+---
+
+## 6. Provision Infrastructure
+
+```bash
+terraform apply -auto-approve
+```
+
+Terraform will create:
+
+* VPC
+* Public Subnet
+* Internet Gateway
+* Route Table
+* Security Group
+* EC2 Instance
+
+Docker installation and container deployment are executed automatically through EC2 User Data.
+
+---
+
+## 7. Retrieve Public IP
+
+```bash
+terraform output
+```
+
+Example:
+
+```text
+public_ip = 54.xx.xx.xx
+```
+
+---
+
+# Application Access
+
+Replace `<PUBLIC-IP>` with the Terraform output value.
+
+### Frontend
+
+```text
+http://<PUBLIC-IP>:3000
+```
+
+Expected Output:
+
+```text
+Frontend is Live
+```
+
+### User Service
+
+```text
+http://<PUBLIC-IP>:3001
+```
+
+### Product Service
+
+```text
+http://<PUBLIC-IP>:3002
+```
+
+### Order Service
+
+```text
+http://<PUBLIC-IP>:3003
+```
+
+### Cart Service
+
+```text
+http://<PUBLIC-IP>:3004
+```
+
+---
+
+# Verification
+
+## Verify Running Containers
+
+SSH into EC2:
+
+```bash
+ssh -i terraform-keypair.pem ubuntu@<PUBLIC-IP>
+```
+
+Check Docker containers:
+
+```bash
+docker ps
+```
+
+Expected:
+
+```text
+frontend-service
+user-service
+product-service
+order-service
+cart-service
+```
+
+---
+
+## Check Container Logs
+
+```bash
+docker logs <container-id>
+```
+
+---
+
+# Terraform Output
+
+```bash
+terraform output
+```
+
+Example:
+
+```text
+public_ip = 54.xx.xx.xx
+```
+
+---
+
+# Screenshots Included
+
+The following screenshots are included in the submission:
+
+1. DockerHub repositories
+2. Terraform Apply Success
+3. AWS EC2 Instance Running
+4. Docker Containers Running
+5. Frontend Accessible via Browser
+6. Backend Services Accessible
+7. Terraform Output
+
+---
+
+# Cleanup Resources
+
+To avoid AWS charges:
+
+```bash
+terraform destroy -auto-approve
+```
+
+---
+
+# Learning Outcomes
+
+* Infrastructure as Code using Terraform
+* AWS Networking (VPC, Subnet, Security Groups)
+* Docker Containerization
+* DockerHub Image Management
+* Automated Application Deployment
+* Cloud Infrastructure Provisioning
+
+---
+
+# GitHub Repository
+
+Repository URL:
+
+```text
+https://github.com/santoshbaba1/E-CommerceStore.git
+```
+
+---
+
+# Author
+
+Santosh Kumar Sharma
+
+DevOps Engineer | AWS | Terraform | Docker | CI/CD | Cloud Infrastructure
+
+
+
+
+---
 ## 🏗️ Architecture Overview
 
 This application demonstrates modern microservices architecture with the following components:
