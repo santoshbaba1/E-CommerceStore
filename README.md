@@ -133,9 +133,7 @@ project/
 ├── terraform/
 │   ├── provider.tf
 │   ├── main.tf
-│   ├── variables.tf
 │   ├── outputs.tf
-│   ├── terraform.tfvars
 │   └── userdata.sh
 │
 └── README.md
@@ -150,7 +148,7 @@ project/
 ```bash
 git clone https://github.com/AtharvaAI/E-CommerceStore.git
 
-cd project-name/terraform
+cd E-CommerceStore/terraform
 ```
 
 ---
@@ -174,7 +172,7 @@ AWS Region
 ## 3. Initialize Terraform
 
 ```bash
-terraform init
+terraform -chdir=terraform init
 ```
 
 ---
@@ -182,7 +180,7 @@ terraform init
 ## 4. Validate Configuration
 
 ```bash
-terraform validate
+terraform -chdir=terraform validate
 ```
 
 ---
@@ -190,7 +188,7 @@ terraform validate
 ## 5. Review Execution Plan
 
 ```bash
-terraform plan
+terraform -chdir=terraform plan
 ```
 
 ---
@@ -198,7 +196,7 @@ terraform plan
 ## 6. Provision Infrastructure
 
 ```bash
-terraform apply -auto-approve
+terraform -chdir=terraform apply -auto-approve
 ```
 
 Terraform will create:
