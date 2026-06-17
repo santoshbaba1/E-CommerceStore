@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^1.5.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
@@ -14,6 +15,13 @@
     "react-dom": "^18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.8.1"
+=======
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1",
+    "axios": "^1.5.0",
+    "react-query": "^3.39.3"
+>>>>>>> 7880ef9e2f029b369b9beda44e1df07d1a7d9072
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,4 +51,8 @@
     "react-scripts": "5.0.1"
   },
   "proxy": "http://localhost:3000"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7880ef9e2f029b369b9beda44e1df07d1a7d9072
