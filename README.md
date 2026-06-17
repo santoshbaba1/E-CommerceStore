@@ -1,7 +1,4 @@
 # E-Commerce Microservices Application
-
-A full-stack MERN e-commerce application built with microservices architecture, featuring 4 separate Node.js backend services and a React frontend.
----
 # Deploy a Multi-Service Node.js E-Commerce Application Using Terraform and Docker
 
 ## Assignment Overview
